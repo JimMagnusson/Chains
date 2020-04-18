@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 public class BattleSystem : MonoBehaviour
 {
+    private EnemyInfo enemyInfo;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject enemyPrefab;
 
@@ -28,6 +29,8 @@ public class BattleSystem : MonoBehaviour
     void Start()
     {
         state = BattleState.START;
+        enemyInfo = FindObjectOfType<EnemyInfo>();
+        enemyPrefab = enemyInfo.GetPrefab();
         StartCoroutine(SetupBattle());
     }
 

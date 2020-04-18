@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4089159922205390580}
   - component: {fileID: 3594373190437702975}
   - component: {fileID: 736391552}
+  - component: {fileID: 736391553}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -96,3 +97,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacles: {fileID: 0}
   enemiesObj: {fileID: 0}
+--- !u!114 &736391553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7497692548662042780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd5b3d623216e44fb290beee69d3224, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

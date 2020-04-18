@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+public enum Direction { UP, DOWN, LEFT, RIGHT };
 public class PlayerMovement : MonoBehaviour
 {
-    private enum Direction { UP, DOWN, LEFT, RIGHT};
 
     [SerializeField] private GameObject obstacles = null;
     [SerializeField] private GameObject enemiesObj = null;
@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Tilemap obstaclesTilemap;
     private Vector3Int posInt;
+    private Direction currentDirection;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +41,10 @@ public class PlayerMovement : MonoBehaviour
         return enemies;
     }
 
-
+    public Direction getCurrentDirection()
+    {
+        return currentDirection;
+    }
 
     // Update is called once per frame
     void Update()
@@ -48,7 +52,8 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             Move(Direction.UP);
-            if(HasTileCollision() || HasEnemyCollision())
+            currentDirection = Direction.UP;
+            if (HasTileCollision() || HasEnemyCollision())
             {
                 Move(Direction.DOWN);
             }
@@ -56,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             Move(Direction.DOWN);
+            currentDirection = Direction.DOWN;
             if (HasTileCollision() || HasEnemyCollision())
             {
                 Move(Direction.UP);
@@ -64,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             Move(Direction.RIGHT);
+            currentDirection = Direction.RIGHT;
             if (HasTileCollision() || HasEnemyCollision())
             {
                 Move(Direction.LEFT);
@@ -72,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             Move(Direction.LEFT);
+            currentDirection = Direction.LEFT;
             if (HasTileCollision() || HasEnemyCollision())
             {
                 Move(Direction.RIGHT);
@@ -79,8 +87,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         enemies = getEnemiesInArray();
-
-        // probably need to check if the enemy array has changed size
     }
 
     private bool HasTileCollision()
@@ -88,6 +94,11 @@ public class PlayerMovement : MonoBehaviour
         // -1 on x because of the Tilemap
         posInt = new Vector3Int((int)transform.position.x - 1, (int)transform.position.y, (int)transform.position.z);
         return obstaclesTilemap.HasTile(posInt);
+    }
+
+    public GameObject[] getEnemies()
+    {
+        return enemies;
     }
 
     private bool HasEnemyCollision()

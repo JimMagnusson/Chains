@@ -6,6 +6,8 @@ public class Unit : MonoBehaviour
 {
     // Start is called before the first frame update
 
+    //private CompanionStats companionStats;
+
     public string unitName;
     public int unitLevel;
 
@@ -13,7 +15,12 @@ public class Unit : MonoBehaviour
 
     public int maxHP;
     public int currentHP;
-    public bool dead = false;
+    private bool dead = false;
+    public int level;
+
+    private void Start()
+    {
+    }
 
     public void TakeDamage(int damage)
     {
