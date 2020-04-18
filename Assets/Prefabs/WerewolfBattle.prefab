@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0059e529e9031f54bb9f530b0dfe7465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Zombie
+  unitName: Werewolf
   unitLevel: 1
-  damage: 1
-  maxHP: 30
+  damage: 2
+  maxHP: 20
   currentHP: 20
   level: 0
 --- !u!1 &4788597900274242224

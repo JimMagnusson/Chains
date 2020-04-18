@@ -2,12 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerInteraction : MonoBehaviour
 {
     private PlayerMovement playerMovement;
-    private int battleSceneIndex = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +19,9 @@ public class PlayerInteraction : MonoBehaviour
         {
             if(EnemyInFront())
             {
-                SceneManager.LoadScene(battleSceneIndex);
-                FindObjectOfType<StateMachine>().SetSceneState(SceneState.BATTLE);
+                StateMachine stateMachine = FindObjectOfType<StateMachine>();
+                stateMachine.loadScene(SceneState.BATTLE);
+                stateMachine.SetSceneState(SceneState.BATTLE);
             }
         }
     }

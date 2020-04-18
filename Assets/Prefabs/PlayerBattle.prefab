@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8998500345058687415}
   - component: {fileID: 8808031539136339807}
   m_Layer: 0
-  m_Name: Knight
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1a9e6d7a8cc87dc45aa49073dcb7be08, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 364415d6002adab4ab132b5b6fc49190, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -131,7 +131,6 @@ MonoBehaviour:
   damage: 0
   maxHP: 1
   currentHP: 1
-  level: 0
 --- !u!114 &-9086994010904491083
 MonoBehaviour:
   m_ObjectHideFlags: 0

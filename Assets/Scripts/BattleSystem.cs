@@ -10,7 +10,9 @@ public class BattleSystem : MonoBehaviour
 {
     private EnemyInfo enemyInfo;
     [SerializeField] private GameObject playerPrefab;
+    private GameObject playerGO;
     [SerializeField] private GameObject enemyPrefab;
+    private GameObject enemyGO;
 
     [SerializeField] private Transform playerSpawn;
     [SerializeField] private Transform enemySpawn;
@@ -36,9 +38,9 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator SetupBattle()
     {
-        GameObject playerGO = Instantiate(playerPrefab, playerSpawn);
+        playerGO = Instantiate(playerPrefab, playerSpawn);
         playerUnit = playerGO.GetComponent<Unit>();
-        GameObject enemyGO = Instantiate(enemyPrefab, enemySpawn);
+        enemyGO = Instantiate(enemyPrefab, enemySpawn);
         enemyUnit = enemyGO.GetComponent<Unit>();
 
         dialogueText.text = "You are confronted by a " + enemyUnit.unitName;
@@ -78,7 +80,7 @@ public class BattleSystem : MonoBehaviour
         {
             state = BattleState.WON;
             yield return new WaitForSeconds(2);
-            EndBattle();
+            StartCoroutine(EndBattle());
         } else
         {
             state = BattleState.ENEMYTURN;
@@ -101,7 +103,7 @@ public class BattleSystem : MonoBehaviour
         if (playerIsDead)
         {
             state = BattleState.LOST;
-            EndBattle();
+            StartCoroutine(EndBattle());
         } else
         {
             state = BattleState.PLAYERTURN;
@@ -110,7 +112,7 @@ public class BattleSystem : MonoBehaviour
 
     }
 
-    private void EndBattle()
+    private IEnumerator EndBattle()
     {
         if (state == BattleState.WON)
         {
@@ -119,5 +121,8 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "You were defeated";
         }
+        FindObjectOfType<PlayerStats>().currentHP = playerGO.GetComponent<Unit>().currentHP;
+        yield return new WaitForSeconds(3f);
+        FindObjectOfType<StateMachine>().loadScene(SceneState.OVERWORLD);
     }
 }

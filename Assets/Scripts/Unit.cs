@@ -16,7 +16,6 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currentHP;
     private bool dead = false;
-    public int level;
 
     private void Start()
     {

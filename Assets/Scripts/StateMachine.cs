@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum SceneState { OVERWORLD, BATTLE }
 public class StateMachine : MonoBehaviour
 {
     private static StateMachine instance;
 
+    public int overworldBuildIndex = 0;
+    public int battleScreenBuildIndex = 1;
     private SceneState sceneState = SceneState.OVERWORLD;
 
     public SceneState GetSceneState()
@@ -17,6 +20,23 @@ public class StateMachine : MonoBehaviour
     public void SetSceneState(SceneState state)
     {
         sceneState = state;
+    }
+
+    public void loadScene(SceneState scene)
+    {
+        switch(scene)
+        {
+            case SceneState.OVERWORLD:
+            {
+                SceneManager.LoadScene(overworldBuildIndex);
+                break;
+            }
+            case SceneState.BATTLE:
+            {
+                SceneManager.LoadScene(battleScreenBuildIndex);
+                break;
+            }
+        }
     }
 
     private void Awake()
