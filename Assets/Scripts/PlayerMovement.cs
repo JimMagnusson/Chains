@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
         enemies = getEnemiesInArray();
     }
 
-    private void printEnemyPositions()
+    private void PrintEnemyPositions()
     {
         for (int i = 0; i < enemies.Length; i++)
         {
@@ -77,6 +77,8 @@ public class PlayerMovement : MonoBehaviour
                 Move(Direction.RIGHT);
             }
         }
+
+        enemies = getEnemiesInArray();
 
         // probably need to check if the enemy array has changed size
     }
