@@ -28,6 +28,13 @@ public class Enemy : MonoBehaviour
             {
                 if (transform.position == defeatedEnemiesCoordinates[i])
                 {
+                    if(enemyType == EnemyType.LESHEN)
+                    {
+                        Destroy(FindObjectOfType<EnemyInfo>());
+                        Destroy(FindObjectOfType<PlayerStats>());
+                        Destroy(FindObjectOfType<CompanionStats>());
+                        FindObjectOfType<Loader>().LoadWinScreen();
+                    }
                     Destroy(gameObject);
                 }
             }

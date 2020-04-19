@@ -5,21 +5,15 @@ using UnityEngine;
 public class MapController : MonoBehaviour
 {
     private EnemyInfo enemyInfo;
-    [SerializeField] private GameObject enemies;
+    [SerializeField] private GameObject enemiesObj;
     // Start is called before the first frame update
     void Awake()
     {
         enemyInfo = FindObjectOfType<EnemyInfo>();
-        enemyInfo.SetEnemies(enemies);
+        enemyInfo.SetEnemies(enemiesObj);
         if(enemyInfo.enemyDefeated)
         {
             enemyInfo.AddDefeatedEnemyToDefeatedEnemyPositions();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

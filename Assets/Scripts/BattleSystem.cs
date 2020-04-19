@@ -259,9 +259,8 @@ public class BattleSystem : MonoBehaviour
                     yield return new WaitForSeconds(1f);
                 }
             }
+            FindObjectOfType<Loader>().LoadScene(SceneState.OVERWORLD);
         }
-        
-        FindObjectOfType<Loader>().LoadScene(SceneState.OVERWORLD);
     }
 
     private void ResetStatsAndInfoObjects()

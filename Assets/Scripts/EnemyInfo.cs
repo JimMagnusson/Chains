@@ -45,6 +45,7 @@ public class EnemyInfo : MonoBehaviour
         }
     }
 
+
     public void SetEnemyInBattlePos(Vector3 enemyPos)
     {
         enemyInBattlePos = enemyPos;
