@@ -9,6 +9,9 @@ public class CompanionStats : MonoBehaviour
     [SerializeField] private GameObject werewolfCompanion;
     [SerializeField] private GameObject zombieCompanion;
     [SerializeField] private GameObject leshenCompanion;
+    [SerializeField] private GameObject impCompanion;
+    [SerializeField] private GameObject golemCompanion;
+
     private GameObject companionPrefab;
 
     [SerializeField] private int level;
@@ -78,6 +81,16 @@ public class CompanionStats : MonoBehaviour
             case EnemyType.LESHEN:
                 {
                     companionPrefab = leshenCompanion;
+                    break;
+                }
+            case EnemyType.IMP:
+                {
+                    companionPrefab = impCompanion;
+                    break;
+                }
+            case EnemyType.GOLEM:
+                {
+                    companionPrefab = golemCompanion;
                     break;
                 }
 

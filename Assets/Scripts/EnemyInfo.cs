@@ -10,6 +10,9 @@ public class EnemyInfo : MonoBehaviour
     [SerializeField] private GameObject werewolf;
     [SerializeField] private GameObject zombie;
     [SerializeField] private GameObject leshen;
+    [SerializeField] private GameObject imp;
+    [SerializeField] private GameObject golem;
+
     [SerializeField] public GameObject[] enemies;
     private GameObject enemyPrefab;
     public Vector3 enemyInBattlePos;
@@ -74,6 +77,18 @@ public class EnemyInfo : MonoBehaviour
             case EnemyType.LESHEN:
                 {
                     enemyPrefab = leshen;
+                    break;
+                }
+
+            case EnemyType.IMP:
+                {
+                    enemyPrefab = imp;
+                    break;
+                }
+
+            case EnemyType.GOLEM:
+                {
+                    enemyPrefab = golem;
                     break;
                 }
 
