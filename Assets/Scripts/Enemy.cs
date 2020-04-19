@@ -6,6 +6,7 @@ public enum EnemyType { ZOMBIE,WEREWOLF,LESHEN}
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyType enemyType;
+    private EnemyInfo enemyInfo;
     // Start is called before the first frame update
 
     public EnemyType GetEnemyType()
@@ -14,15 +15,28 @@ public class Enemy : MonoBehaviour
     }
     void Start()
     {
+        DestroyIfInListOfDefeatedEnemies();
+    }
+
+    private void DestroyIfInListOfDefeatedEnemies()
+    {
+        enemyInfo = FindObjectOfType<EnemyInfo>();
+        List<Vector3> defeatedEnemiesCoordinates = enemyInfo.GetDefeatedEnemiesPositions();
+        if (defeatedEnemiesCoordinates != null)
+        {
+            for (int i = 0; i < defeatedEnemiesCoordinates.Count; i++)
+            {
+                if (transform.position == defeatedEnemiesCoordinates[i])
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            Destroy(gameObject);
-        }
     }
 }

@@ -95,7 +95,7 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        playerUnit.TakeDamage(playerUnit.damage);
+        playerUnit.TakeDamage(enemyUnit.damage);
         bool playerIsDead = playerUnit.IsDead();
         playerHUD.SetHP(playerUnit.currentHP);
         yield return new WaitForSeconds(0.5f);

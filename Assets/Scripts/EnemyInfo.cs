@@ -13,6 +13,7 @@ public class EnemyInfo : MonoBehaviour
     [SerializeField] public GameObject[] enemies;
     private GameObject enemyPrefab;
     public Vector3 enemyInBattlePos;
+    private List<Vector3> defeatedEnemiesPositions;
     public bool enemyDefeated;
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class EnemyInfo : MonoBehaviour
     }
     private void Start()
     {
+        defeatedEnemiesPositions = new List<Vector3>();
     }
 
     public void SetEnemies(GameObject enemiesObj)
@@ -48,6 +50,11 @@ public class EnemyInfo : MonoBehaviour
     public GameObject GetPrefab ()
     {
         return enemyPrefab;
+    }
+
+    public List<Vector3> GetDefeatedEnemiesPositions()
+    {
+        return defeatedEnemiesPositions;
     }
 
     public void SetPrefab(EnemyType type)
@@ -79,15 +86,10 @@ public class EnemyInfo : MonoBehaviour
         
     }
 
-    public void RemoveDefeatedEnemy()
+    public void AddDefeatedEnemyToDefeatedEnemyPositions()
     {
-        for(int i = 0; i < enemies.Length; i++)
-        {
-            if (enemyInBattlePos == enemies[i].transform.position)
-            {
-                Destroy(enemies[i]);
-            }
-        }
+        defeatedEnemiesPositions.Add(enemyInBattlePos);
+        enemyDefeated = false;
     }
 
 }

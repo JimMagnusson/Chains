@@ -46,10 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Werewolf
   unitLevel: 1
-  damage: 2
+  damage: 3
   maxHP: 20
   currentHP: 20
-  level: 0
 --- !u!1 &4788597900274242224
 GameObject:
   m_ObjectHideFlags: 0
