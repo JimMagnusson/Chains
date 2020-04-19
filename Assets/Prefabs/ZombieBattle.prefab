@@ -126,8 +126,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Zombie
+  unitType: 0
   unitLevel: 1
   damage: 1
   maxHP: 10
   currentHP: 10
-  xpReward: 5
+  xpReward: 50

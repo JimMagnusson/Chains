@@ -9,6 +9,11 @@ public class PlayerBattle : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        StatsUpdate();
+    }
+
+    public void StatsUpdate()
+    {
         playerStats = FindObjectOfType<PlayerStats>();
         unit = GetComponent<Unit>();
         unit.unitLevel = playerStats.level;

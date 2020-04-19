@@ -10,10 +10,10 @@ public class PlayerStats : MonoBehaviour
     public int maxHP;
     public int currentHP;
     public int damage;
-    public Vector3 positionBeforeBattle = new Vector3(0,0);
+    public Vector3 positionBeforeBattle = new Vector3(0, 0);
 
-    private int xp;
-    private int xpThreshold = 100;
+    [SerializeField] private int xp = 0;
+    [SerializeField] private int xpThreshold = 50;
     private void Awake()
     {
         //Singleton
@@ -37,7 +37,11 @@ public class PlayerStats : MonoBehaviour
     }
     public void LevelUp()
     {
-        // increase dmg and maxHP, set currentHP to full
+        maxHP += 10;
+        currentHP = maxHP;
+        damage += 1;
+        xpThreshold = 50 * (int)Mathf.Pow((level + 1), 2) - 50 * (level + 1);
+        xp = 0;
     }
 
 }

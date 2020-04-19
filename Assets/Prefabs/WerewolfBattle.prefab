@@ -50,7 +50,7 @@ MonoBehaviour:
   damage: 3
   maxHP: 20
   currentHP: 20
-  xpReward: 20
+  xpReward: 200
 --- !u!1 &4788597900274242224
 GameObject:
   m_ObjectHideFlags: 0

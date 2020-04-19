@@ -11,13 +11,13 @@ public class CompanionStats : MonoBehaviour
     [SerializeField] private GameObject leshenCompanion;
     private GameObject companionPrefab;
 
-    private int level;
-    private int maxHP;
-    private int currentHP;
-    private int damage;
+    [SerializeField] private int level;
+    [SerializeField] private int maxHP;
+    [SerializeField] private int currentHP;
+    [SerializeField] private int damage;
 
-    private int xp;
-    private int xpThreshold = 100;
+    [SerializeField] private int xp = 0;
+    [SerializeField] private int xpThreshold = 50;
 
     private void Awake()
     {
@@ -87,6 +87,7 @@ public class CompanionStats : MonoBehaviour
         maxHP = companionPrefab.GetComponent<Unit>().maxHP;
         currentHP = companionPrefab.GetComponent<Unit>().currentHP;
         damage = companionPrefab.GetComponent<Unit>().damage;
+        xpThreshold = 50;
     }
 
     public void IncreaseXP(int amount)
@@ -101,6 +102,10 @@ public class CompanionStats : MonoBehaviour
 
     public void LevelUp()
     {
-        // increase dmg and maxHP, set currentHP to full
+        maxHP += 10;
+        currentHP = maxHP;
+        damage += 1;
+        xpThreshold = 50*(int)Mathf.Pow((level+1), 2) - 50*(level + 1);
+        xp = 0;
     }
 }

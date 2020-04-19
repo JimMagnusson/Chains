@@ -177,8 +177,7 @@ public class BattleSystem : MonoBehaviour
             }
         }
     }
-
-    private IEnumerator EnemyTurn()
+        private IEnumerator EnemyTurn()
     {
         dialogueText.text = "The " + enemyUnit.unitName + " attacks!";
 
@@ -220,24 +219,27 @@ public class BattleSystem : MonoBehaviour
         }
         dialogueText.text = "You have won the battle!";
         enemyInfo.enemyDefeated = true;
+        yield return new WaitForSeconds(2f);
 
         PlayerStats playerStats = FindObjectOfType<PlayerStats>();
-        playerStats.currentHP = playerGO.GetComponent<Unit>().currentHP;
+        //playerStats.currentHP = playerGO.GetComponent<Unit>().currentHP;
         playerStats.IncreaseXP(enemyUnit.xpReward);
         if(playerStats.isTimeToLevelUp())
         {
             playerStats.LevelUp();
+            companionHUD.SetHP(companionUnit.maxHP);
             dialogueText.text = "Player has leveled up!";
+            yield return new WaitForSeconds(2f);
         }
         CompanionStats companionStats = FindObjectOfType<CompanionStats>();
         companionStats.IncreaseXP(enemyUnit.xpReward);
         if (companionStats.isTimeToLevelUp())
         {
             companionStats.LevelUp();
+            companionHUD.SetHP(companionUnit.maxHP);
             dialogueText.text = "Companion has leveled up!";
+            yield return new WaitForSeconds(2f);
         }
-
-        yield return new WaitForSeconds(2f);
         FindObjectOfType<Loader>().LoadScene(SceneState.OVERWORLD);
     }
 
