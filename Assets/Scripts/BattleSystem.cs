@@ -286,13 +286,13 @@ public class BattleSystem : MonoBehaviour
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             attackSelected = true;
             arrowOnAttack.SetActive(true);
             arrowOnCapture.SetActive(false);
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             attackSelected = false;
             arrowOnAttack.SetActive(false);

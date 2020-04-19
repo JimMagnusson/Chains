@@ -694,7 +694,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Use WASD/arrow keys to move and ENTER to interact.
+  m_Text: Use WASD/arrow keys to move and RETURN to interact.
 --- !u!222 &1054127585
 CanvasRenderer:
   m_ObjectHideFlags: 0
