@@ -35,6 +35,9 @@ public class BattleSystem : MonoBehaviour
     private Unit enemyUnit;
     private Unit companionUnit;
 
+    private bool companionIsDead = false;
+    private bool playerIsDead = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -102,9 +105,18 @@ public class BattleSystem : MonoBehaviour
             StartCoroutine(EndBattle());
         } else
         {
-            state = BattleState.COMPANIONTURN;
-            yield return new WaitForSeconds(1);
-            CompanionTurn();
+            if(companionIsDead)
+            {
+                state = BattleState.ENEMYTURN;
+                yield return new WaitForSeconds(1);
+                StartCoroutine(EnemyTurn());
+            }
+            else
+            {
+                state = BattleState.COMPANIONTURN;
+                yield return new WaitForSeconds(1);
+                CompanionTurn();
+            }
         }
     }
 
@@ -151,8 +163,18 @@ public class BattleSystem : MonoBehaviour
         else
         {
             dialogueText.text = "Capture falied! Weaken the enemy to get better chance.";
-            yield return new WaitForSeconds(2);
-            CompanionTurn();
+            if (companionIsDead)
+            {
+                state = BattleState.ENEMYTURN;
+                yield return new WaitForSeconds(2);
+                StartCoroutine(EnemyTurn());
+            }
+            else
+            {
+                state = BattleState.COMPANIONTURN;
+                yield return new WaitForSeconds(2);
+                CompanionTurn();
+            }
         }
     }
 
@@ -161,21 +183,29 @@ public class BattleSystem : MonoBehaviour
         dialogueText.text = "The " + enemyUnit.unitName + " attacks!";
 
         yield return new WaitForSeconds(0.5f);
-
-        playerUnit.TakeDamage(enemyUnit.damage);
-        bool playerIsDead = playerUnit.IsDead();
-        playerHUD.SetHP(playerUnit.currentHP);
-        yield return new WaitForSeconds(0.5f);
-
-        if (playerIsDead)
+        if(companionIsDead)
         {
-            state = BattleState.LOST;
-            StartCoroutine(EndBattle());
-        } else
-        {
-            state = BattleState.PLAYERTURN;
-            PlayerTurn();
+            playerUnit.TakeDamage(enemyUnit.damage);
+            playerHUD.SetHP(playerUnit.currentHP);
+            playerIsDead = playerUnit.IsDead();
+            if (playerIsDead)
+            {
+                dialogueText.text = "You are dead.";
+                yield return new WaitForSeconds(1f);
+                state = BattleState.LOST;
+                StartCoroutine(EndBattle());
+            }
         }
+        else
+        {
+            companionUnit.TakeDamage(enemyUnit.damage);
+            companionHUD.SetHP(companionUnit.currentHP);
+            companionIsDead = companionUnit.IsDead();
+        }
+        
+        yield return new WaitForSeconds(0.5f);
+        state = BattleState.PLAYERTURN;
+        PlayerTurn();
 
     }
 
@@ -216,10 +246,5 @@ public class BattleSystem : MonoBehaviour
         Destroy(FindObjectOfType<EnemyInfo>());
         Destroy(FindObjectOfType<PlayerStats>());
         Destroy(FindObjectOfType<CompanionStats>());
-    }
-
-    public Unit getEnemyUnit()
-    {
-        return enemyUnit;
     }
 }
