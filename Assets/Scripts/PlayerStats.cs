@@ -10,6 +10,7 @@ public class PlayerStats : MonoBehaviour
     public int maxHP;
     public int currentHP;
     public int damage;
+    public Vector3 positionBeforeBattle = new Vector3(0,0);
     private void Awake()
     {
         //Singleton

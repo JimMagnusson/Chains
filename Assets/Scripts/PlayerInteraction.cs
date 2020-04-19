@@ -6,10 +6,15 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     private PlayerMovement playerMovement;
+    private PlayerStats playerStats;
+    private EnemyInfo enemyInfo;
+
     // Start is called before the first frame update
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        playerStats = FindObjectOfType<PlayerStats>();
+        enemyInfo = FindObjectOfType<EnemyInfo>();
     }
 
     // Update is called once per frame
@@ -19,6 +24,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             if(EnemyInFront())
             {
+                playerStats.positionBeforeBattle = transform.position;
                 StateMachine stateMachine = FindObjectOfType<StateMachine>();
                 stateMachine.loadScene(SceneState.BATTLE);
                 stateMachine.SetSceneState(SceneState.BATTLE);
@@ -28,7 +34,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private bool EnemyInFront()
     {
-        // Checks if there is an enemy in front of the player. If there is, it also sets the enemy as the prefab to load into the battle.
+        // Checks if there is an enemy in front of the player. If there is, it also sets the enemy as the prefab to load into the battle. Also saves reference to gameobject in enemyInfo.
         int xOffset = 0;
         int yOffset = 0;
         // CHeck if there is an enemy on the tile according to player direction
@@ -61,7 +67,8 @@ public class PlayerInteraction : MonoBehaviour
             Vector3 posInFront = new Vector3(transform.position.x + xOffset, transform.position.y + yOffset, transform.position.z);
             if (posInFront == enemies[i].transform.position)
             {
-                FindObjectOfType<EnemyInfo>().SetPrefab(enemies[i].GetComponent<Enemy>().GetEnemyType());
+                enemyInfo.SetPrefab(enemies[i].GetComponent<Enemy>().GetEnemyType());
+                enemyInfo.SetEnemyInBattlePos(enemies[i].transform.position);
                 return true;
             }
         }

@@ -48,7 +48,7 @@ public class BattleSystem : MonoBehaviour
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
 
         state = BattleState.PLAYERTURN;
         PlayerTurn();
@@ -79,12 +79,12 @@ public class BattleSystem : MonoBehaviour
         if(enemyIsDead)
         {
             state = BattleState.WON;
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
             StartCoroutine(EndBattle());
         } else
         {
             state = BattleState.ENEMYTURN;
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
             StartCoroutine(EnemyTurn());
         }
     }
@@ -93,12 +93,12 @@ public class BattleSystem : MonoBehaviour
     {
         dialogueText.text = enemyUnit.unitName + " attacks!";
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         playerUnit.TakeDamage(playerUnit.damage);
         bool playerIsDead = playerUnit.IsDead();
         playerHUD.SetHP(playerUnit.currentHP);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         if (playerIsDead)
         {
@@ -117,12 +117,13 @@ public class BattleSystem : MonoBehaviour
         if (state == BattleState.WON)
         {
             dialogueText.text = "You have won the battle!";
+            enemyInfo.enemyDefeated = true;
         } else if( state == BattleState.LOST)
         {
             dialogueText.text = "You were defeated";
         }
         FindObjectOfType<PlayerStats>().currentHP = playerGO.GetComponent<Unit>().currentHP;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         FindObjectOfType<StateMachine>().loadScene(SceneState.OVERWORLD);
     }
 }

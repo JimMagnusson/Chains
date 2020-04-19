@@ -16,12 +16,20 @@ public class PlayerMovement : MonoBehaviour
     private Vector3Int posInt;
     private Direction currentDirection = Direction.DOWN;
     private PlayerSprite playerSprite;
+    private PlayerStats playerStats;
     // Start is called before the first frame update
     void Start()
     {
         obstaclesTilemap = obstacles.GetComponent<Tilemap>();
         enemies = getEnemiesInArray();
         playerSprite = GetComponent<PlayerSprite>();
+        playerStats = FindObjectOfType<PlayerStats>();
+        MoveToPositionBeforeBattle();
+    }
+
+    private void MoveToPositionBeforeBattle()
+    {
+        transform.position = playerStats.positionBeforeBattle;
     }
 
     private void PrintEnemyPositions()
