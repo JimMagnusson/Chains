@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3613191691759856896}
   - component: {fileID: 2952363140287092862}
+  - component: {fileID: -6796754493417420403}
   m_Layer: 0
   m_Name: ImpCompanion
   m_TagString: Enemy
@@ -51,6 +52,18 @@ MonoBehaviour:
   maxHP: 25
   currentHP: 25
   xpReward: 0
+--- !u!114 &-6796754493417420403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3121591726274562387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bbb33bc9519c9c4b95291fdd4c9f59b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8698619081837318157
 GameObject:
   m_ObjectHideFlags: 0

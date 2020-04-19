@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3567513951386980503}
   - component: {fileID: 3124969383539123689}
+  - component: {fileID: -7452220449394302951}
   m_Layer: 0
   m_Name: GolemCompanion
   m_TagString: Enemy
@@ -47,10 +48,22 @@ MonoBehaviour:
   unitName: Golem
   unitType: 4
   unitLevel: 1
-  damage: 10
-  maxHP: 25
-  currentHP: 25
+  damage: 15
+  maxHP: 120
+  currentHP: 120
   xpReward: 0
+--- !u!114 &-7452220449394302951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2951237198180136132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bbb33bc9519c9c4b95291fdd4c9f59b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8867950836082273690
 GameObject:
   m_ObjectHideFlags: 0

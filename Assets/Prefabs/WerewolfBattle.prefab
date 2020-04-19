@@ -47,10 +47,10 @@ MonoBehaviour:
   unitName: Werewolf
   unitType: 1
   unitLevel: 1
-  damage: 10
-  maxHP: 25
-  currentHP: 25
-  xpReward: 250
+  damage: 30
+  maxHP: 250
+  currentHP: 250
+  xpReward: 3000
 --- !u!1 &4788597900274242224
 GameObject:
   m_ObjectHideFlags: 0

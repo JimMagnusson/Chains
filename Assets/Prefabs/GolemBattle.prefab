@@ -47,10 +47,10 @@ MonoBehaviour:
   unitName: Golem
   unitType: 4
   unitLevel: 1
-  damage: 10
-  maxHP: 25
-  currentHP: 25
-  xpReward: 0
+  damage: 15
+  maxHP: 120
+  currentHP: 120
+  xpReward: 1000
 --- !u!1 &5312265092377738990
 GameObject:
   m_ObjectHideFlags: 0

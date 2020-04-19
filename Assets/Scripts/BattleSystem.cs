@@ -39,6 +39,11 @@ public class BattleSystem : MonoBehaviour
     private bool playerIsDead = false;
     private bool capturedEnemy = false;
 
+    private bool attackSelected = true;
+
+    [SerializeField] GameObject arrowOnAttack;
+    [SerializeField] GameObject arrowOnCapture;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +53,12 @@ public class BattleSystem : MonoBehaviour
         companionStats = FindObjectOfType<CompanionStats>();
         companionPrefab = companionStats.GetPrefab();
         StartCoroutine(SetupBattle());
+        arrowOnCapture.SetActive(false);
+    }
+
+    public void setArrowOnCaptureActive()
+    {
+        arrowOnCapture.SetActive(true);
     }
 
     IEnumerator SetupBattle()
@@ -219,33 +230,37 @@ public class BattleSystem : MonoBehaviour
             ResetStatsAndInfoObjects();
             FindObjectOfType<Loader>().LoadLoseScreen();
         }
-        dialogueText.text = "You have won the battle!";
-        enemyInfo.enemyDefeated = true;
-        yield return new WaitForSeconds(2f);
+        else
+        {
+            dialogueText.text = "You have won the battle!";
+            enemyInfo.enemyDefeated = true;
+            yield return new WaitForSeconds(1f);
 
-        PlayerStats playerStats = FindObjectOfType<PlayerStats>();
-        playerStats.IncreaseXP(enemyUnit.xpReward);
-        if(playerStats.isTimeToLevelUp())
-        {
-            playerStats.LevelUp();
-            FindObjectOfType<PlayerBattle>().GetComponent<PlayerBattle>().StatsUpdate();
-            playerHUD.SetHUD(playerUnit);
-            dialogueText.text = "Player has leveled up!";
-            yield return new WaitForSeconds(2f);
-        }
-        if(capturedEnemy == false)
-        {
-            CompanionStats companionStats = FindObjectOfType<CompanionStats>();
-            companionStats.IncreaseXP(enemyUnit.xpReward);
-            if (companionStats.isTimeToLevelUp())
+            PlayerStats playerStats = FindObjectOfType<PlayerStats>();
+            playerStats.IncreaseXP(enemyUnit.xpReward);
+            if (playerStats.isTimeToLevelUp())
             {
-                companionStats.LevelUp();
-                FindObjectOfType<CompanionBattle>().GetComponent<CompanionBattle>().StatsUpdate();
-                companionHUD.SetHUD(companionUnit);
-                dialogueText.text = "Companion has leveled up!";
-                yield return new WaitForSeconds(2f);
+                playerStats.LevelUp();
+                FindObjectOfType<PlayerBattle>().GetComponent<PlayerBattle>().StatsUpdate();
+                playerHUD.SetHUD(playerUnit);
+                dialogueText.text = playerUnit.unitName + " has leveled up!";
+                yield return new WaitForSeconds(1f);
+            }
+            if (capturedEnemy == false)
+            {
+                CompanionStats companionStats = FindObjectOfType<CompanionStats>();
+                companionStats.IncreaseXP(enemyUnit.xpReward);
+                if (companionStats.isTimeToLevelUp())
+                {
+                    companionStats.LevelUp();
+                    FindObjectOfType<CompanionBattle>().GetComponent<CompanionBattle>().StatsUpdate();
+                    companionHUD.SetHUD(companionUnit);
+                    dialogueText.text = companionUnit.unitName + " has leveled up!";
+                    yield return new WaitForSeconds(1f);
+                }
             }
         }
+        
         FindObjectOfType<Loader>().LoadScene(SceneState.OVERWORLD);
     }
 
@@ -254,5 +269,35 @@ public class BattleSystem : MonoBehaviour
         Destroy(FindObjectOfType<EnemyInfo>());
         Destroy(FindObjectOfType<PlayerStats>());
         Destroy(FindObjectOfType<CompanionStats>());
+    }
+
+    private void Update()
+    {
+        if(state == BattleState.PLAYERTURN || state == BattleState.COMPANIONTURN)
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                if(attackSelected)
+                {
+                    OnAttackButton();
+                }
+                else
+                {
+                    OnCaptureButton();
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            attackSelected = true;
+            arrowOnAttack.SetActive(true);
+            arrowOnCapture.SetActive(false);
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            attackSelected = false;
+            arrowOnAttack.SetActive(false);
+            arrowOnCapture.SetActive(true);
+        }
     }
 }
