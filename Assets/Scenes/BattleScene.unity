@@ -775,7 +775,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Chain
+  m_Text: Capture
 --- !u!222 &784972630
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2757,7 +2757,7 @@ GameObject:
   - component: {fileID: 1759531661}
   - component: {fileID: 1759531660}
   m_Layer: 5
-  m_Name: ChainButon
+  m_Name: CaptureButon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2825,7 +2825,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1759531661}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 721707261}
+        m_MethodName: OnCaptureButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1759531661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2900,12 +2911,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2936,8 +2947,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -177.2, y: -5.5}
-  m_SizeDelta: {x: 309.6, y: 69}
+  m_AnchoredPosition: {x: -177.2, y: -0.0000061989}
+  m_SizeDelta: {x: 309.6, y: 101.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1837133760
 GameObject:

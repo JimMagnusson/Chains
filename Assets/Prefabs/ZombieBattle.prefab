@@ -130,4 +130,4 @@ MonoBehaviour:
   damage: 1
   maxHP: 10
   currentHP: 10
-  level: 0
+  xpReward: 5

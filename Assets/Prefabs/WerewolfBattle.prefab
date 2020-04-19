@@ -45,10 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Werewolf
+  unitType: 1
   unitLevel: 1
   damage: 3
   maxHP: 20
   currentHP: 20
+  xpReward: 20
 --- !u!1 &4788597900274242224
 GameObject:
   m_ObjectHideFlags: 0

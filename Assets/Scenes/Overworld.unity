@@ -4599,12 +4599,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   werewolfCompanion: {fileID: 3941825302337165547, guid: b4576b9e8dc668a4c9851ba2b68b2062,
     type: 3}
-  zombieCompanion: {fileID: 0}
-  leshenCompanion: {fileID: 0}
-  level: 10
-  maxHP: 20
-  currentHP: 20
-  damage: 5
+  zombieCompanion: {fileID: 3562594379499642781, guid: 73f80e618b0f9d344ae06c67c6620dc9,
+    type: 3}
+  leshenCompanion: {fileID: 3907924488491261533, guid: 206cddf891a985a4d8a2587338a3cbcd,
+    type: 3}
 --- !u!4 &1892733067
 Transform:
   m_ObjectHideFlags: 0

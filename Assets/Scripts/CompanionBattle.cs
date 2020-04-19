@@ -11,9 +11,9 @@ public class CompanionBattle : MonoBehaviour
     {
         companionStats = FindObjectOfType<CompanionStats>();
         unit = GetComponent<Unit>();
-        unit.unitLevel = companionStats.level;
-        unit.damage = companionStats.damage;
-        unit.maxHP = companionStats.maxHP;
-        unit.currentHP = companionStats.currentHP;
+        unit.unitLevel = companionStats.GetLevel();
+        unit.damage = companionStats.GetDamage();
+        unit.maxHP = companionStats.GetMaxHP();
+        unit.currentHP = companionStats.GetCurrentHP();
     }
 }

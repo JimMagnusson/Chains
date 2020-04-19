@@ -89,8 +89,6 @@ public class BattleSystem : MonoBehaviour
         }
         return;
     }
-
-
     private IEnumerator PlayerAttack()
     {
         enemyUnit.TakeDamage(playerUnit.damage);
@@ -130,9 +128,37 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    public void OnCaptureButton()
+    {
+        if (state == BattleState.PLAYERTURN)
+        {
+            StartCoroutine(Capture());
+        }
+        return;
+    }
+
+    private IEnumerator Capture()
+    {
+        int rndInt = UnityEngine.Random.Range(0, enemyUnit.maxHP);
+        if(rndInt > enemyUnit.currentHP)
+        {
+            dialogueText.text = "You captured the enemy!";
+            state = BattleState.WON;
+            yield return new WaitForSeconds(2);
+            companionStats.SetPrefabAndStartingStats(enemyUnit.unitType);
+            StartCoroutine(EndBattle());
+        }
+        else
+        {
+            dialogueText.text = "Capture falied! Weaken the enemy to get better chance.";
+            yield return new WaitForSeconds(2);
+            CompanionTurn();
+        }
+    }
+
     private IEnumerator EnemyTurn()
     {
-        dialogueText.text = enemyUnit.unitName + " attacks!";
+        dialogueText.text = "The " + enemyUnit.unitName + " attacks!";
 
         yield return new WaitForSeconds(0.5f);
 
@@ -153,20 +179,34 @@ public class BattleSystem : MonoBehaviour
 
     }
 
-    private IEnumerator EndBattle()
+    public IEnumerator EndBattle()
     {
-        if (state == BattleState.WON)
-        {
-            dialogueText.text = "You have won the battle!";
-            enemyInfo.enemyDefeated = true;
-        } else if( state == BattleState.LOST)
+        if( state == BattleState.LOST)
         {
             dialogueText.text = "You were defeated";
             yield return new WaitForSeconds(2f);
             ResetStatsAndInfoObjects();
             FindObjectOfType<Loader>().LoadLoseScreen();
         }
-        FindObjectOfType<PlayerStats>().currentHP = playerGO.GetComponent<Unit>().currentHP;
+        dialogueText.text = "You have won the battle!";
+        enemyInfo.enemyDefeated = true;
+
+        PlayerStats playerStats = FindObjectOfType<PlayerStats>();
+        playerStats.currentHP = playerGO.GetComponent<Unit>().currentHP;
+        playerStats.IncreaseXP(enemyUnit.xpReward);
+        if(playerStats.isTimeToLevelUp())
+        {
+            playerStats.LevelUp();
+            dialogueText.text = "Player has leveled up!";
+        }
+        CompanionStats companionStats = FindObjectOfType<CompanionStats>();
+        companionStats.IncreaseXP(enemyUnit.xpReward);
+        if (companionStats.isTimeToLevelUp())
+        {
+            companionStats.LevelUp();
+            dialogueText.text = "Companion has leveled up!";
+        }
+
         yield return new WaitForSeconds(2f);
         FindObjectOfType<Loader>().LoadScene(SceneState.OVERWORLD);
     }
@@ -176,5 +216,10 @@ public class BattleSystem : MonoBehaviour
         Destroy(FindObjectOfType<EnemyInfo>());
         Destroy(FindObjectOfType<PlayerStats>());
         Destroy(FindObjectOfType<CompanionStats>());
+    }
+
+    public Unit getEnemyUnit()
+    {
+        return enemyUnit;
     }
 }

@@ -11,6 +11,9 @@ public class PlayerStats : MonoBehaviour
     public int currentHP;
     public int damage;
     public Vector3 positionBeforeBattle = new Vector3(0,0);
+
+    private int xp;
+    private int xpThreshold = 100;
     private void Awake()
     {
         //Singleton
@@ -21,6 +24,20 @@ public class PlayerStats : MonoBehaviour
             return;
         }
         Destroy(this.gameObject);
+    }
+
+    public void IncreaseXP(int amount)
+    {
+        xp += amount;
+    }
+
+    public bool isTimeToLevelUp()
+    {
+        return xp >= xpThreshold;
+    }
+    public void LevelUp()
+    {
+        // increase dmg and maxHP, set currentHP to full
     }
 
 }

@@ -11,10 +11,13 @@ public class CompanionStats : MonoBehaviour
     [SerializeField] private GameObject leshenCompanion;
     private GameObject companionPrefab;
 
-    public int level;
-    public int maxHP;
-    public int currentHP;
-    public int damage;
+    private int level;
+    private int maxHP;
+    private int currentHP;
+    private int damage;
+
+    private int xp;
+    private int xpThreshold = 100;
 
     private void Awake()
     {
@@ -31,15 +34,34 @@ public class CompanionStats : MonoBehaviour
     private void Start()
     {
         //Remove later when companion system in place
-        companionPrefab = zombieCompanion;
+        SetPrefabAndStartingStats(EnemyType.ZOMBIE);
     }
 
+    public int GetLevel()
+    {
+        return level;
+    }
+
+    public int GetMaxHP()
+    {
+        return maxHP;
+    }
+
+    public int GetCurrentHP()
+    {
+        return currentHP;
+    }
+
+    public int GetDamage()
+    {
+        return damage;
+    }
     public GameObject GetPrefab()
     {
         return companionPrefab;
     }
 
-    public void SetPrefab(EnemyType type)
+    public void SetPrefabAndStartingStats(EnemyType type)
     {
         switch (type)
         {
@@ -60,5 +82,25 @@ public class CompanionStats : MonoBehaviour
                 }
 
         }
+
+        level = companionPrefab.GetComponent<Unit>().unitLevel;
+        maxHP = companionPrefab.GetComponent<Unit>().maxHP;
+        currentHP = companionPrefab.GetComponent<Unit>().currentHP;
+        damage = companionPrefab.GetComponent<Unit>().damage;
+    }
+
+    public void IncreaseXP(int amount)
+    {
+        xp += amount;
+    }
+
+    public bool isTimeToLevelUp()
+    {
+        return xp >= xpThreshold;
+    }
+
+    public void LevelUp()
+    {
+        // increase dmg and maxHP, set currentHP to full
     }
 }

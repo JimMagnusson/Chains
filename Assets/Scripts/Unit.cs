@@ -9,12 +9,15 @@ public class Unit : MonoBehaviour
     //private CompanionStats companionStats;
 
     public string unitName;
+    public EnemyType unitType;
     public int unitLevel;
 
     public int damage;
 
     public int maxHP;
     public int currentHP;
+
+    public int xpReward;
     private bool dead = false;
 
     private void Start()
