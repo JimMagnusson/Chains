@@ -8,6 +8,7 @@ public class EnemyInfo : MonoBehaviour
 
     [SerializeField] private GameObject werewolf;
     [SerializeField] private GameObject zombie;
+    [SerializeField] private GameObject leshen;
     private GameObject enemyPrefab;
     private void Awake()
     {
@@ -38,6 +39,11 @@ public class EnemyInfo : MonoBehaviour
             case EnemyType.WEREWOLF:
                 {
                     enemyPrefab = werewolf;
+                    break;
+                }
+            case EnemyType.LESHEN:
+                {
+                    enemyPrefab = leshen;
                     break;
                 }
 

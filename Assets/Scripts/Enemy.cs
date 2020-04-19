@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyType { ZOMBIE,WEREWOLF}
+public enum EnemyType { ZOMBIE,WEREWOLF,LESHEN}
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyType enemyType;

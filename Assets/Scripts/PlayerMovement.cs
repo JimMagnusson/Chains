@@ -14,12 +14,14 @@ public class PlayerMovement : MonoBehaviour
 
     private Tilemap obstaclesTilemap;
     private Vector3Int posInt;
-    private Direction currentDirection;
+    private Direction currentDirection = Direction.DOWN;
+    private PlayerSprite playerSprite;
     // Start is called before the first frame update
     void Start()
     {
         obstaclesTilemap = obstacles.GetComponent<Tilemap>();
         enemies = getEnemiesInArray();
+        playerSprite = GetComponent<PlayerSprite>();
     }
 
     private void PrintEnemyPositions()
@@ -71,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Move(Direction.RIGHT);
             currentDirection = Direction.RIGHT;
+
             if (HasTileCollision() || HasEnemyCollision())
             {
                 Move(Direction.LEFT);
@@ -87,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         enemies = getEnemiesInArray();
+        playerSprite.ChangeSprite(currentDirection);
     }
 
     private bool HasTileCollision()
@@ -120,9 +124,6 @@ public class PlayerMovement : MonoBehaviour
             case Direction.UP:
                 {
                     transform.position += Vector3.up;
-                    // Get current standing tile
-                    // If it is in tilemap Obstacles
-                    // Move it back
                     break;
                 }
             case Direction.DOWN:
