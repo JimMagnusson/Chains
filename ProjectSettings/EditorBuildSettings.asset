@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 0b6e7b5a78aa70a479f53d04097bea99
+  - enabled: 1
     path: Assets/Scenes/Overworld.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/BattleScene.unity
     guid: 53e798eaffec1874d973970a47de5eb7
+  - enabled: 1
+    path: Assets/Scenes/Lose Screen.unity
+    guid: 0b91bc32e773f7046aee35dd029108c1
+  - enabled: 1
+    path: Assets/Scenes/Win Screen.unity
+    guid: c07ad18054faa5547a4cc4fb234a090b
   m_configObjects: {}

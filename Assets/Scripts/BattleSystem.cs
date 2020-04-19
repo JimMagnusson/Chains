@@ -121,9 +121,18 @@ public class BattleSystem : MonoBehaviour
         } else if( state == BattleState.LOST)
         {
             dialogueText.text = "You were defeated";
+            yield return new WaitForSeconds(2f);
+            ResetStatsAndInfoObjects();
+            FindObjectOfType<Loader>().LoadLoseScreen();
         }
         FindObjectOfType<PlayerStats>().currentHP = playerGO.GetComponent<Unit>().currentHP;
         yield return new WaitForSeconds(2f);
-        FindObjectOfType<StateMachine>().loadScene(SceneState.OVERWORLD);
+        FindObjectOfType<Loader>().LoadScene(SceneState.OVERWORLD);
+    }
+
+    private void ResetStatsAndInfoObjects()
+    {
+        Destroy(FindObjectOfType<EnemyInfo>());
+        Destroy(FindObjectOfType<PlayerStats>());
     }
 }

@@ -26,7 +26,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 playerStats.positionBeforeBattle = transform.position;
                 StateMachine stateMachine = FindObjectOfType<StateMachine>();
-                stateMachine.loadScene(SceneState.BATTLE);
+                FindObjectOfType<Loader>().LoadScene(SceneState.BATTLE);
                 stateMachine.SetSceneState(SceneState.BATTLE);
             }
         }
