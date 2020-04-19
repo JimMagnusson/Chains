@@ -128,7 +128,7 @@ MonoBehaviour:
   unitName: Leshen
   unitType: 2
   unitLevel: 1
-  damage: 3
-  maxHP: 40
-  currentHP: 40
-  xpReward: 500
+  damage: 15
+  maxHP: 100
+  currentHP: 100
+  xpReward: 1000

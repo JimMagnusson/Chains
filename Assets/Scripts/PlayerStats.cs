@@ -37,11 +37,16 @@ public class PlayerStats : MonoBehaviour
     }
     public void LevelUp()
     {
+        level += 1;
         maxHP += 10;
         currentHP = maxHP;
         damage += 1;
-        xpThreshold = 50 * (int)Mathf.Pow((level + 1), 2) - 50 * (level + 1);
-        xp = 0;
+        xp -= xpThreshold;
+        xpThreshold = 50 * (int)Mathf.Pow((level), 2) - 50 * (level);
+        if (isTimeToLevelUp())
+        {
+            LevelUp();
+        }
     }
 
 }

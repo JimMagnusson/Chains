@@ -37,6 +37,7 @@ public class BattleSystem : MonoBehaviour
 
     private bool companionIsDead = false;
     private bool playerIsDead = false;
+    private bool capturedEnemy = false;
 
     // Start is called before the first frame update
     void Start()
@@ -156,6 +157,7 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "You captured the enemy!";
             state = BattleState.WON;
+            capturedEnemy = true;
             yield return new WaitForSeconds(2);
             companionStats.SetPrefabAndStartingStats(enemyUnit.unitType);
             StartCoroutine(EndBattle());
@@ -210,7 +212,7 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator EndBattle()
     {
-        if( state == BattleState.LOST)
+        if(state == BattleState.LOST)
         {
             dialogueText.text = "You were defeated";
             yield return new WaitForSeconds(2f);
@@ -222,23 +224,27 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         PlayerStats playerStats = FindObjectOfType<PlayerStats>();
-        //playerStats.currentHP = playerGO.GetComponent<Unit>().currentHP;
         playerStats.IncreaseXP(enemyUnit.xpReward);
         if(playerStats.isTimeToLevelUp())
         {
             playerStats.LevelUp();
-            companionHUD.SetHP(companionUnit.maxHP);
+            FindObjectOfType<PlayerBattle>().GetComponent<PlayerBattle>().StatsUpdate();
+            playerHUD.SetHUD(playerUnit);
             dialogueText.text = "Player has leveled up!";
             yield return new WaitForSeconds(2f);
         }
-        CompanionStats companionStats = FindObjectOfType<CompanionStats>();
-        companionStats.IncreaseXP(enemyUnit.xpReward);
-        if (companionStats.isTimeToLevelUp())
+        if(capturedEnemy == false)
         {
-            companionStats.LevelUp();
-            companionHUD.SetHP(companionUnit.maxHP);
-            dialogueText.text = "Companion has leveled up!";
-            yield return new WaitForSeconds(2f);
+            CompanionStats companionStats = FindObjectOfType<CompanionStats>();
+            companionStats.IncreaseXP(enemyUnit.xpReward);
+            if (companionStats.isTimeToLevelUp())
+            {
+                companionStats.LevelUp();
+                FindObjectOfType<CompanionBattle>().GetComponent<CompanionBattle>().StatsUpdate();
+                companionHUD.SetHUD(companionUnit);
+                dialogueText.text = "Companion has leveled up!";
+                yield return new WaitForSeconds(2f);
+            }
         }
         FindObjectOfType<Loader>().LoadScene(SceneState.OVERWORLD);
     }

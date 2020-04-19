@@ -9,6 +9,11 @@ public class CompanionBattle : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        StatsUpdate();
+    }
+
+    public void StatsUpdate()
+    {
         companionStats = FindObjectOfType<CompanionStats>();
         unit = GetComponent<Unit>();
         unit.unitLevel = companionStats.GetLevel();
