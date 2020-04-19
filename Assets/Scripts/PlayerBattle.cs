@@ -16,10 +16,4 @@ public class PlayerBattle : MonoBehaviour
         unit.maxHP = playerStats.maxHP;
         unit.currentHP = playerStats.currentHP;
     }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }

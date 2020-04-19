@@ -591,10 +591,14 @@ MonoBehaviour:
     type: 3}
   enemyPrefab: {fileID: 5136556886841870230, guid: 6711d1e08335f194d86a47eb2a92a839,
     type: 3}
+  companionPrefab: {fileID: 3941825302337165547, guid: b4576b9e8dc668a4c9851ba2b68b2062,
+    type: 3}
   playerSpawn: {fileID: 915922018}
   enemySpawn: {fileID: 1652371754}
+  companionSpawn: {fileID: 1597838458}
   dialogueText: {fileID: 1764060949}
   playerHUD: {fileID: 868475058}
+  companionHUD: {fileID: 939696499}
   enemyHUD: {fileID: 754558797}
   state: 0
 --- !u!4 &721707262
@@ -1026,6 +1030,7 @@ GameObject:
   - component: {fileID: 939696496}
   - component: {fileID: 939696498}
   - component: {fileID: 939696497}
+  - component: {fileID: 939696499}
   m_Layer: 5
   m_Name: CompanionBattleHud
   m_TagString: Untagged
@@ -1091,6 +1096,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939696495}
   m_CullTransparentMesh: 0
+--- !u!114 &939696499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939696495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23af65a5021582343bd351682a48a431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 1038101382}
+  levelText: {fileID: 1461252413}
+  hpSlider: {fileID: 1638516981}
 --- !u!1 &947911433
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,12 +33,6 @@ public class StateMachine : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private void ResetStatsAndInfoObjects()
-    {
-        Destroy(FindObjectOfType<EnemyInfo>());
-        Destroy(FindObjectOfType<PlayerStats>());
-    }
-
     // Start is called before the first frame update
     void Start()
     {

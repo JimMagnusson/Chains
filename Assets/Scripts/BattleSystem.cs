@@ -5,27 +5,35 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
+public enum BattleState { START, PLAYERTURN, COMPANIONTURN, ENEMYTURN, WON, LOST }
 public class BattleSystem : MonoBehaviour
 {
     private EnemyInfo enemyInfo;
+    private CompanionStats companionStats;
+
     [SerializeField] private GameObject playerPrefab;
     private GameObject playerGO;
     [SerializeField] private GameObject enemyPrefab;
     private GameObject enemyGO;
+    [SerializeField] private GameObject companionPrefab;
+    private GameObject companionGO;
+
 
     [SerializeField] private Transform playerSpawn;
     [SerializeField] private Transform enemySpawn;
+    [SerializeField] private Transform companionSpawn;
 
     [SerializeField] private Text dialogueText;
 
     [SerializeField] private BattleHUD playerHUD;
+    [SerializeField] private BattleHUD companionHUD;
     [SerializeField] private BattleHUD enemyHUD;
 
     [SerializeField] private BattleState state;
 
     private Unit playerUnit;
     private Unit enemyUnit;
+    private Unit companionUnit;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +41,8 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.START;
         enemyInfo = FindObjectOfType<EnemyInfo>();
         enemyPrefab = enemyInfo.GetPrefab();
+        companionStats = FindObjectOfType<CompanionStats>();
+        companionPrefab = companionStats.GetPrefab();
         StartCoroutine(SetupBattle());
     }
 
@@ -42,10 +52,13 @@ public class BattleSystem : MonoBehaviour
         playerUnit = playerGO.GetComponent<Unit>();
         enemyGO = Instantiate(enemyPrefab, enemySpawn);
         enemyUnit = enemyGO.GetComponent<Unit>();
+        companionGO = Instantiate(companionPrefab, companionSpawn);
+        companionUnit = companionGO.GetComponent<Unit>();
 
         dialogueText.text = "You are confronted by a " + enemyUnit.unitName;
 
         playerHUD.SetHUD(playerUnit);
+        companionHUD.SetHUD(companionUnit);
         enemyHUD.SetHUD(enemyUnit);
 
         yield return new WaitForSeconds(1.5f);
@@ -56,17 +69,25 @@ public class BattleSystem : MonoBehaviour
 
     private void PlayerTurn()
     {
-        dialogueText.text = "Choose an action";
+        dialogueText.text = "Choose player action";
+    }
+
+    private void CompanionTurn()
+    {
+        dialogueText.text = "Choose companion action";
     }
 
     public void OnAttackButton()
     {
-        if (state != BattleState.PLAYERTURN)
+        if (state == BattleState.PLAYERTURN)
         {
-            return;
+            StartCoroutine(PlayerAttack());
         }
-
-        StartCoroutine(PlayerAttack());
+        else if(state == BattleState.COMPANIONTURN)
+        {
+            StartCoroutine(CompanionAttack());
+        }
+        return;
     }
 
 
@@ -82,6 +103,26 @@ public class BattleSystem : MonoBehaviour
             yield return new WaitForSeconds(1);
             StartCoroutine(EndBattle());
         } else
+        {
+            state = BattleState.COMPANIONTURN;
+            yield return new WaitForSeconds(1);
+            CompanionTurn();
+        }
+    }
+
+    private IEnumerator CompanionAttack()
+    {
+        enemyUnit.TakeDamage(companionUnit.damage);
+        bool enemyIsDead = enemyUnit.IsDead();
+        enemyHUD.SetHP(enemyUnit.currentHP);
+        dialogueText.text = "The enemy was attacked";
+        if (enemyIsDead)
+        {
+            state = BattleState.WON;
+            yield return new WaitForSeconds(1);
+            StartCoroutine(EndBattle());
+        }
+        else
         {
             state = BattleState.ENEMYTURN;
             yield return new WaitForSeconds(1);
@@ -134,5 +175,6 @@ public class BattleSystem : MonoBehaviour
     {
         Destroy(FindObjectOfType<EnemyInfo>());
         Destroy(FindObjectOfType<PlayerStats>());
+        Destroy(FindObjectOfType<CompanionStats>());
     }
 }

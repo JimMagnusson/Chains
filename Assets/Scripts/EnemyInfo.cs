@@ -80,12 +80,6 @@ public class EnemyInfo : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void AddDefeatedEnemyToDefeatedEnemyPositions()
     {
         defeatedEnemiesPositions.Add(enemyInBattlePos);
